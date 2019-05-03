@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <MainProjectDir>$(SolutionDir)src</MainProjectDir>
+    <RestoreAdditionalProjectSources Condition="'$(DesignTimeBuild)' != 'true'">$(MainProjectDir)/bin/Debug/;</RestoreAdditionalProjectSources>
+    <RestorePackagesPath>../pkg~</RestorePackagesPath>
+    <DeterministicSourcePaths>false</DeterministicSourcePaths>
+  </PropertyGroup>
+  
+  <Target Name="PackMainProjectBeforeRestore" BeforeTargets="_GenerateRestoreGraph" Condition="'$(DesignTimeBuild)' != 'true'">
+    <RemoveDir Directories="$(RestorePackagesPath)/$(MainPackageId)" />
+    <MSBuild Targets="Rebuild" Projects="$(MainProjectDir)/Crowded.MediaTypes.csproj" Properties="Force=true" />
+    <MSBuild Targets="Pack" Projects="$(MainProjectDir)/Crowded.MediaTypes.csproj" Properties="NoBuild=true" />
+  </Target>
+
+  <Target Name="PublishProjectBeforeVSTest" BeforeTargets="VSTest">
+    <MSBuild Targets="Publish" Projects="Crowded.MediaTypes.PackageTest.csproj" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="$(MainPackageId)" Version="$(Version)" />
+    <PackageReference Remove="Microsoft.SourceLink.GitHub" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+  </ItemGroup>
+</Project>

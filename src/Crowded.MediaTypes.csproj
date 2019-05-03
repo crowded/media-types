@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>$(MainPackageId)</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\Package.targets" PackagePath="build/$(MainPackageId).targets" />
+    <Content Include="content/magic.mgc" PackagePath="content">
+      <!-- For project to project references we have to copy native assets into output -->
+      <Link>%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>  
+    
+    <Content Include="runtimes/win-x64/native/*" PackagePath="runtimes/win-x64/native/">
+      <!-- For project to project references we have to copy native assets into output -->
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory Condition="$([MSBuild]::IsOsPlatform('Windows'))">PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="runtimes/linux-x64/native/*" PackagePath="runtimes/linux-x64/native/">
+      <!-- For project to project references we have to copy native assets into output -->
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory Condition="$([MSBuild]::IsOsPlatform('Linux'))">PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="runtimes/osx-x64/native/*" PackagePath="runtimes/osx-x64/native/">
+      <!-- For project to project references we have to copy native assets into output -->
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory Condition="$([MSBuild]::IsOsPlatform('OSX'))">PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </Content>
+  </ItemGroup>
+</Project>

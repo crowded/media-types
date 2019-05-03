@@ -1,0 +1,45 @@
+<Project>
+  <PropertyGroup>
+    <!-- General -->
+    <MainPackageId>Crowded.MediaTypes</MainPackageId>
+    <RepoName>crowded/media-types</RepoName>
+    <Version>1.0.0</Version>
+    <Description> A media types .NET Standard library for Windows, Linux, and MacOS. </Description>
+    <Copyright>Copyright 2019 Crowded B.V.</Copyright>
+    <Authors>Nino Floris and contributors</Authors>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    
+    <!-- Common settings -->
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <!-- Disable implicitly importing targets, we have no need for it now. -->
+    <ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Don't make missing XML docs a fatal build error, only surface them as warnings. -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591</WarningsNotAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+    <DesignTimeBuild Condition="'$(DesignTimeBuild)' == '' AND '$(BuildingByReSharper)' == 'true'">true</DesignTimeBuild>
+<!--    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>-->
+
+    <!-- NuGet settings -->
+    <PackageTags>Media types;magic bytes;libmagic;magic;MIME</PackageTags>
+    <RepositoryUrl>https://github.com/$(RepoName)</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <HasProjectPage>false</HasProjectPage>
+    <PackageProjectUrl Condition="'$(HasProjectPage)' == 'true'">$(RepositoryUrl)</PackageProjectUrl>
+    <PackageReleaseNotes>https://raw.githubusercontent.com/$(RepoName)/master/RELEASE_NOTES.md</PackageReleaseNotes>
+    <PackageIconUrl>https://raw.githubusercontent.com/$(RepoName)/master/tools/icons/mediatypes-128x128.png</PackageIconUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+    <!-- disable sourcelink on mono, to workaround https://github.com/dotnet/sourcelink/issues/155 -->
+    <EnableSourceLink Condition="'$(OS)' != 'Windows_NT' AND '$(MSBuildRuntimeType)' != 'Core' ">false</EnableSourceLink>
+    <EnableSourceControlManagerQueries>$(EnableSourceLink)</EnableSourceControlManagerQueries>
+    <!-- For source embedding  -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder Condition=" '$(EnableSourceLink)' == 'true' ">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
+  </ItemGroup>
+</Project>
