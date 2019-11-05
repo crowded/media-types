@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="build\Package.targets" PackagePath="build/$(MainPackageId).targets" />
+    <Content Include="build/Package.targets" PackagePath="build/$(PackageId).targets" />
     <Content Include="content/magic.mgc" PackagePath="content">
       <!-- For project to project references we have to copy native assets into output -->
       <Link>%(Filename)%(Extension)</Link>
