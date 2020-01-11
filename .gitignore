@@ -6,6 +6,9 @@ nupkg/
 # Visual Studio Code
 .vscode
 
+# Ionide
+.ionide/
+
 # Rider
 .idea
 

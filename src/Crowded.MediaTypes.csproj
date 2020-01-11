@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackageId>Crowded.MediaTypes</PackageId>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>$(MainPackageId)</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

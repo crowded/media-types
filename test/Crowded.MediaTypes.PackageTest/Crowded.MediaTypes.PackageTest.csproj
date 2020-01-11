@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
-    <MainProjectDir>$(SolutionDir)src</MainProjectDir>
+    <MainProjectDir>$(SolutionDir)/src</MainProjectDir>
     <RestoreAdditionalProjectSources Condition="'$(DesignTimeBuild)' != 'true'">$(MainProjectDir)/bin/Debug/;</RestoreAdditionalProjectSources>
     <RestorePackagesPath>../pkg~</RestorePackagesPath>
     <DeterministicSourcePaths>false</DeterministicSourcePaths>
   </PropertyGroup>
   
   <Target Name="PackMainProjectBeforeRestore" BeforeTargets="_GenerateRestoreGraph" Condition="'$(DesignTimeBuild)' != 'true'">
-    <RemoveDir Directories="$(RestorePackagesPath)/$(MainPackageId)" />
+    <RemoveDir Directories="$(RestorePackagesPath)/$(PackageId)" />
     <MSBuild Targets="Rebuild" Projects="$(MainProjectDir)/Crowded.MediaTypes.csproj" Properties="Force=true" />
     <MSBuild Targets="Pack" Projects="$(MainProjectDir)/Crowded.MediaTypes.csproj" Properties="NoBuild=true" />
   </Target>
@@ -20,7 +20,7 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="$(MainPackageId)" Version="$(Version)" />
+    <PackageReference Include="$(PackageId)" Version="$(Version)" />
     <PackageReference Remove="Microsoft.SourceLink.GitHub" />
   </ItemGroup>
 
