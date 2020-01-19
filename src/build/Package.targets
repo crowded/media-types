@@ -1,7 +1,8 @@
 <Project>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)/../content/magic.mgc">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
     </Content>
   </ItemGroup>
 </Project>

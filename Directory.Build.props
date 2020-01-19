@@ -2,7 +2,7 @@
   <PropertyGroup>
     <!-- General -->
     <RepositoryPath>crowded/media-types</RepositoryPath>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Description> A media types library for Windows, Linux, and MacOS. </Description>
     <Copyright>Copyright 2020 Crowded</Copyright>
     <Authors>Nino Floris and contributors</Authors>
